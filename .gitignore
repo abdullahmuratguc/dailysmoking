@@ -3,6 +3,8 @@
 # Do not ignore code style config
 !/.idea/codeStyles
 build
+buildSrc/build/*
+build\*
 reports
 *.iml
 local.properties

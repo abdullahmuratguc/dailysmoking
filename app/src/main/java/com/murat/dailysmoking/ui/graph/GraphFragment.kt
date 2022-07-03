@@ -1,10 +1,7 @@
 package com.murat.dailysmoking.ui.graph
 
 import android.graphics.Color
-import android.os.Bundle
-import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.animation.Easing
@@ -14,30 +11,29 @@ import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
 import com.murat.dailysmoking.R
+import com.murat.dailysmoking.base.BaseFragment
+import com.murat.dailysmoking.base.contentViewBinding
 import com.murat.dailysmoking.databinding.FragmentGraphBinding
 import com.murat.dailysmoking.ui.graph.util.ChartFeed
 import com.murat.dailysmoking.utils.EMPTY
-import com.murat.dailysmoking.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GraphFragment : Fragment(R.layout.fragment_graph) {
+class GraphFragment : BaseFragment() {
 
-    private val binding by viewBinding(FragmentGraphBinding::bind)
+    private val binding by contentViewBinding(FragmentGraphBinding::bind)
+
+    override val layoutId = R.layout.fragment_graph
 
     private val viewModel: GraphViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        observe()
-        viewModel.getWeeklySmokeCount()
-    }
-
-    private fun initView() {
+    override fun initViews() {
         initBarChart(binding.weeklySmokeCountBarChart)
         initBarChart(binding.monthlySmokeCountBarChart)
         initPieChart(binding.yearlySpendPieChart)
+
+        observe()
+        viewModel.getWeeklySmokeCount()
     }
 
     private fun observe() {
@@ -112,25 +108,13 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         chart.setDrawCenterText(true)
 
         chart.rotationAngle = 0f
-        // enable rotation of the chart by touch
-        // enable rotation of the chart by touch
         chart.isRotationEnabled = true
         chart.isHighlightPerTapEnabled = true
         chart.setUsePercentValues(true)
 
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
-
-        // add a selection listener
-
-        // chart.setUnit(" €");
-        // chart.setDrawUnitsInChart(true);
-
 
         chart.animateY(1400, Easing.EaseInOutQuad)
-        // chart.spin(2000, 0, 360);
 
-        // chart.spin(2000, 0, 360);
         val l: Legend = chart.legend
         l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
         l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
@@ -140,9 +124,6 @@ class GraphFragment : Fragment(R.layout.fragment_graph) {
         l.yEntrySpace = 0f
         l.yOffset = 0f
 
-        // entry label styling
-
-        // entry label styling
         chart.setEntryLabelColor(Color.WHITE)
         chart.setEntryLabelTextSize(12f)
     }

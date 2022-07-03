@@ -1,32 +1,31 @@
 package com.murat.dailysmoking.ui.home
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.murat.dailysmoking.R
+import com.murat.dailysmoking.base.BaseFragment
+import com.murat.dailysmoking.base.contentViewBinding
 import com.murat.dailysmoking.databinding.FragmentHomeBinding
 import com.murat.dailysmoking.utils.Constants.TIMER_FORMAT
 import com.murat.dailysmoking.utils.Constants.TIMER_INITIAL
 import com.murat.dailysmoking.utils.nextDay
 import com.murat.dailysmoking.utils.prevDay
-import com.murat.dailysmoking.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import timerx.Stopwatch
 import timerx.buildStopwatch
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : BaseFragment() {
 
-    private val binding by viewBinding(FragmentHomeBinding::bind)
+    private val binding by contentViewBinding(FragmentHomeBinding::bind)
+
+    override val layoutId = R.layout.fragment_home
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -50,8 +49,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
         initUI()
         observe()
     }

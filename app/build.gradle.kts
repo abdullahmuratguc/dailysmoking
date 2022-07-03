@@ -40,6 +40,7 @@ dependencies {
     implementation (Libs.navigationFragment)
     implementation (Libs.navigationUi)
     implementation (Libs.pieChart)
+    implementation (Libs.timber)
 
     implementation (Libs.roomRuntime)
     kapt (Libs.roomCompiler)

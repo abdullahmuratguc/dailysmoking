@@ -1,27 +1,26 @@
 package com.murat.dailysmoking.ui.profile
 
-import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.murat.dailysmoking.R
+import com.murat.dailysmoking.base.BaseFragment
+import com.murat.dailysmoking.base.contentViewBinding
 import com.murat.dailysmoking.databinding.FragmentProfileBinding
-import com.murat.dailysmoking.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class ProfileFragment : BaseFragment() {
 
-    private val binding by viewBinding(FragmentProfileBinding::bind)
+    private val binding by contentViewBinding(FragmentProfileBinding::bind)
+
+    override val layoutId = R.layout.fragment_profile
 
     private val viewModel: ProfileViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
         initUI()
         observe()
     }
