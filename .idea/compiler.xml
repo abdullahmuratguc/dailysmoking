@@ -3,7 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="Daily_Smoking.app" target="11" />
+      <module name="Daily_Smoking.core" target="11" />
       <module name="Daily_Smoking.timerx-core" target="11" />
+      <module name="Daily_Smoking.utils" target="11" />
       <module name="DailySmoking.buildSrc" target="11" />
       <module name="DailySmoking.buildSrc.main" target="11" />
       <module name="DailySmoking.buildSrc.test" target="11" />

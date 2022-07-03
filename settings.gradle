@@ -21,3 +21,5 @@ rootProject.name = "Daily Smoking"
 include ':app'
 include ':timerx-core'
 include ':timerx-formatting'
+include ':core'
+include ':utils'
