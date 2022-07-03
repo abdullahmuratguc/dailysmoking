@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_graph.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_history.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_next_day.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_previous_date.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/ic_smoke.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/drawable/update_price_round.xml" value="0.2395" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/fragment_graph.xml" value="0.22" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/fragment_history.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/fragment_home.xml" value="0.1890625" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/fragment_onboarding.xml" value="0.3151041666666667" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/fragment_splash.xml" value="0.3140625" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/item_daily_smoke_list.xml" value="0.20478837109876016" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/item_dropdown_list.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/layout_create_smoke_price_dialog.xml" value="0.2911458333333333" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/layout_home_empty_view.xml" value="0.21462163317657118" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/view_daily_date_picker.xml" value="0.33" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/layout/view_smoke_bar_markerview.xml" value="0.20735356990166737" />
+        <entry key="..\:/Users/90538/AndroidStudioProjects/DailySmoking/app/src/main/res/menu/bottom_nav_menu.xml" value="0.21979166666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

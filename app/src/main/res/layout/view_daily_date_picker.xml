@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingVertical="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/previousDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@id/selectedDateTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/selectedDateTv"
+        app:srcCompat="@drawable/ic_previous_date" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/selectedDateTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/nextDate"
+        app:layout_constraintStart_toEndOf="@id/previousDate"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/date/ddmmyy" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/nextDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_next_day"
+        app:layout_constraintBottom_toBottomOf="@id/selectedDateTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/selectedDateTv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

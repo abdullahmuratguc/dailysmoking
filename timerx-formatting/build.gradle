@@ -1,0 +1,16 @@
+plugins {
+  id 'maven-publish'
+  id 'java-library'
+  id 'org.jetbrains.kotlin.jvm'
+}
+
+group = 'com.arsvechkarev.timerx'
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_1_7
+  targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+  testImplementation "junit:junit:4.12"
+}

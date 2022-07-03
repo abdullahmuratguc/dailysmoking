@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/smokeIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_smoke"
+        android:tint="@color/red"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/smokingTimeTv"
+        app:layout_constraintTop_toTopOf="@id/smokingTimeTv"
+        app:layout_constraintBottom_toBottomOf="@id/smokingTimeTv"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/smokingTimeTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/smokeIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/smokePriceTv"
+        tools:text="@tools:sample/lorem"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/smokePriceTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/smokingTimeTv"
+        app:layout_constraintTop_toTopOf="@id/smokingTimeTv"
+        app:layout_constraintBottom_toBottomOf="@id/smokingTimeTv"
+        app:layout_constraintEnd_toStartOf="@id/deleteIv"
+        tools:text="@tools:sample/lorem"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/deleteIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_delete"
+        android:padding="4dp"
+        app:layout_constraintStart_toEndOf="@id/smokePriceTv"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/smokePriceTv"
+        app:layout_constraintBottom_toBottomOf="@id/smokePriceTv"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

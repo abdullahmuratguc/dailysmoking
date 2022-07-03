@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">Daily Smoking</string>
+    <string name="title_home">Home</string>
+    <string name="title_graph">Graphs</string>
+    <string name="title_profile">Profile</string>
+    <string name="go_on_btn_text">Continue</string>
+    <string name="single_line">-</string>
+    <string name="select_date">Select Date</string>
+
+    <!-- OnBoarding screen -->
+    <string name="on_boarding_header">Welcome!</string>
+    <string name="on_boarding_sub_header">Hello 🥳 Please fill in your information to start 🚀</string>
+    <string name="on_boarding_package_price_hint">Package Price</string>
+    <string name="on_boarding_select_currency_header_text">Select currency</string>
+    <string name="on_boarding_select_smoke_count_header_text">Smoke count in a package</string>
+
+    <string name="on_boarding_error_package_price">Give valid packet price</string>
+    <string name="on_boarding_error_currency">Give valid currency</string>
+    <string name="on_boarding_error_package_count">Give valid smoke count for a package</string>
+
+    <!-- Update smoke price dialog -->
+    <string name="warning_header_text">Warning</string>
+    <string name="update_smoke_price_text">Update smoke price</string>
+    <string name="update_smoke_price_hint">Price…</string>
+    <string name="update_smoke_price_button_text">Update</string>
+    <string name="update_smoke_price_select_currency_header_text">Select currency:</string>
+
+    <!-- Home screen -->
+    <string name="home_daily_smoke_price_header_text">Daily smoking expenses</string>
+    <string name="home_daily_smoke_count_header_text">Daily smoking count 🤨</string>
+    <string name="empty_list_body_text">Smoke free day detected 🤓</string>
+    <string name="last_moke_time_info_text">Your smoke free time is ☝</string>
+
+    <!-- Graphs screen -->
+    <string name="weekly_bar_chart_marker_text">%1$s times smoked</string>
+    <string name="yearly_pie_chart_center_text">Yearly smoking percents</string>
+
+    <!-- Profile screen -->
+    <string name="prrofile_user_update_success">Updated user information</string>
+
+
+    <string-array name="currencies">
+        <item>₺</item>
+        <item>$</item>
+        <item>£</item>
+    </string-array>
+
+    <string-array name="package_content">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+        <item>32</item>
+        <item>33</item>
+        <item>34</item>
+        <item>35</item>
+        <item>36</item>
+        <item>37</item>
+        <item>38</item>
+        <item>39</item>
+        <item>40</item>
+        <item>41</item>
+        <item>42</item>
+        <item>43</item>
+        <item>44</item>
+        <item>45</item>
+    </string-array>
+</resources>

@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Günlük Sigara Takibi</string>
+    <string name="title_home">Anasayfa</string>
+    <string name="title_graph">Grafikler</string>
+    <string name="title_profile">Profil</string>
+    <string name="go_on_btn_text">Devam et</string>
+    <string name="single_line">-</string>
+    <string name="select_date">Tarih Seç</string>
+
+    <!-- OnBoarding screen -->
+    <string name="on_boarding_header">Hoşgeldin!</string>
+    <string name="on_boarding_sub_header">Merhaba 🥳 Başlamak için lütfen gerekli bilgileri doldur 🚀</string>
+    <string name="on_boarding_package_price_hint">Paket ücreti</string>
+    <string name="on_boarding_select_currency_header_text">Para birimi seç</string>
+    <string name="on_boarding_select_smoke_count_header_text">Pakette bulunan sigara adedi</string>
+
+    <string name="on_boarding_error_package_price">Geçerli bir paket ücreti giriniz</string>
+    <string name="on_boarding_error_currency">Para birimi alanı boş bırakılamaz</string>
+    <string name="on_boarding_error_package_count">Pakette bulunan sigara adedi alanı boş bırakılamaz</string>
+
+    <string name="warning_header_text">Uyarı</string>
+    <string name="update_smoke_price_text">Sigara ücretini güncelle</string>
+    <string name="update_smoke_price_hint">Ücret…</string>
+    <string name="update_smoke_price_button_text">Güncelle</string>
+    <string name="update_smoke_price_select_currency_header_text">Para birimi seç:</string>
+
+    <!-- Home screen -->
+    <string name="home_daily_smoke_price_header_text">Günlük sigara harcaman</string>
+    <string name="home_daily_smoke_count_header_text">Günlük içilen sigara sayısı 🤨</string>
+    <string name="empty_list_body_text">Herhangi bir dumanlanma tespit edilemedi 🤓</string>
+    <string name="last_moke_time_info_text">Son sigara içtiğinden bu yana geçen süre ☝</string>
+
+    <!-- Graphs screen -->
+    <string name="weekly_bar_chart_marker_text">Günlük içilen sigara adedi %1$s</string>
+    <string name="yearly_pie_chart_center_text">Yıllık içilen sigara oranları</string>
+
+    <!-- Profile screen -->
+    <string name="prrofile_user_update_success">Kullanıcı bilgileri güncellendi</string>
+
+</resources>

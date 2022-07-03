@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_splash">
+
+    <fragment
+        android:id="@+id/navigation_splash"
+        android:name="com.murat.dailysmoking.ui.splash.SplashFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_navigate_home"
+            app:destination="@id/navigation_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_navigate_on_boarding"
+            app:destination="@id/navigation_onboarding"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_onboarding"
+        android:name="com.murat.dailysmoking.ui.onboarding.OnBoardingFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_navigate_home"
+            app:destination="@id/navigation_home"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.murat.dailysmoking.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_graph"
+        android:name="com.murat.dailysmoking.ui.graph.GraphFragment"
+        android:label="@string/title_graph"
+        tools:layout="@layout/fragment_graph" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.murat.dailysmoking.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
