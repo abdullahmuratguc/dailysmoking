@@ -4,6 +4,7 @@
     <string name="title_graph">Graphs</string>
     <string name="title_profile">Profile</string>
     <string name="go_on_btn_text">Continue</string>
+    <string name="update_btn_text">Update</string>
     <string name="single_line">-</string>
     <string name="select_date">Select Date</string>
 
@@ -38,7 +39,7 @@
     <string name="yearly_pie_chart_center_text">Yearly smoking percents</string>
 
     <!-- Profile screen -->
-    <string name="prrofile_user_update_success">Updated user information</string>
+    <string name="profile_user_update_success">Updated user information</string>
 
 
     <string-array name="currencies">

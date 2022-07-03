@@ -2,9 +2,11 @@ package com.murat.dailysmoking.ui.home
 
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.murat.core.withError
+import com.murat.core.withProgress
+import com.murat.core.withUiState
 import com.murat.dailysmoking.R
 import com.murat.dailysmoking.base.BaseFragment
 import com.murat.dailysmoking.base.contentViewBinding
@@ -14,7 +16,6 @@ import com.murat.dailysmoking.utils.Constants.TIMER_INITIAL
 import com.murat.dailysmoking.utils.nextDay
 import com.murat.dailysmoking.utils.prevDay
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import timerx.Stopwatch
 import timerx.buildStopwatch
 import java.util.*
@@ -51,7 +52,7 @@ class HomeFragment : BaseFragment() {
 
     override fun initViews() {
         initUI()
-        observe()
+        collectState()
     }
 
     private fun initUI() {
@@ -103,38 +104,34 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun observe() {
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.eventsFlow.collectLatest { state ->
-                when (state) {
-                    is HomeViewModel.Event.SmokeList -> {
-                        dailySmokeAdapter.submitList(state.smokeList) {
-                            if (state.smokeList.isNotEmpty()) {
-                                binding.dailySmokeListRv.scrollToPosition(0)
-                                binding.dailySmokeListRv.isVisible = true
-                                binding.emptySmokingView.isVisible = false
-                            } else {
-                                binding.dailySmokeListRv.isVisible = false
-                                binding.emptySmokingView.isVisible = true
-                            }
-                        }
-                    }
-                    is HomeViewModel.Event.HeaderInfo -> {
-                        state.lastSmokeTime?.let { date ->
-                            stopwatch.setTime(
-                                System.currentTimeMillis() - date.time,
-                                TimeUnit.MILLISECONDS
-                            )
-                            stopwatch.start()
+    private fun collectState() = with(viewModel) {
+        withUiState(this, ::setData)
+        withProgress(this, ::onProgress)
+        withError(this, ::onError)
+    }
 
-                            binding.dailySmokeCountBodyTv.text = state.dailyTotalSmokeCount
-                            binding.dailySmokePriceBodyTv.text = state.dailyTotalSmokePrice
-                        } ?: run {
-                            binding.lastSmokeTimerTv.text = TIMER_INITIAL
-                        }
-                    }
-                }
+    private fun setData(state: HomeViewModel.HomeState) {
+        dailySmokeAdapter.submitList(state.smokeList) {
+            if (state.smokeList.isNotEmpty()) {
+                binding.dailySmokeListRv.scrollToPosition(0)
+                binding.dailySmokeListRv.isVisible = true
+                binding.emptySmokingView.isVisible = false
+            } else {
+                binding.dailySmokeListRv.isVisible = false
+                binding.emptySmokingView.isVisible = true
             }
+        }
+        state.lastSmokeTime?.let { date ->
+            stopwatch.setTime(
+                System.currentTimeMillis() - date.time,
+                TimeUnit.MILLISECONDS
+            )
+            stopwatch.start()
+
+            binding.dailySmokeCountBodyTv.text = state.dailyTotalSmokeCount
+            binding.dailySmokePriceBodyTv.text = state.dailyTotalSmokePrice
+        } ?: run {
+            binding.lastSmokeTimerTv.text = TIMER_INITIAL
         }
     }
 

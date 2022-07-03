@@ -3,13 +3,15 @@ package com.murat.dailysmoking.ui.graph
 import android.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis.XAxisPosition
+import com.murat.core.withError
+import com.murat.core.withProgress
+import com.murat.core.withUiState
 import com.murat.dailysmoking.R
 import com.murat.dailysmoking.base.BaseFragment
 import com.murat.dailysmoking.base.contentViewBinding
@@ -32,17 +34,17 @@ class GraphFragment : BaseFragment() {
         initBarChart(binding.monthlySmokeCountBarChart)
         initPieChart(binding.yearlySpendPieChart)
 
-        observe()
+        collectState()
         viewModel.getWeeklySmokeCount()
     }
 
-    private fun observe() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.uiState.collect(::setUI)
-        }
+    private fun collectState() = with(viewModel) {
+        withUiState(this, ::setUI)
+        withProgress(this, ::onProgress)
+        withError(this, ::onError)
     }
 
-    private fun setUI(uiState: GraphViewModel.UiState) = with(binding) {
+    private fun setUI(uiState: GraphViewModel.GraphState) = with(binding) {
         ChartFeed.setBarChartData(
             chart = weeklySmokeCountBarChart,
             barEntries = uiState.weeklySmokingCountBarEntry,

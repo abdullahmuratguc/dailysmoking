@@ -6,10 +6,15 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.murat.core.withError
+import com.murat.core.withEvent
+import com.murat.core.withProgress
+import com.murat.core.withUiState
 import com.murat.dailysmoking.R
 import com.murat.dailysmoking.base.BaseFragment
 import com.murat.dailysmoking.base.contentViewBinding
 import com.murat.dailysmoking.databinding.FragmentOnboardingBinding
+import com.murat.dailysmoking.ui.profile.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -27,7 +32,7 @@ class OnBoardingFragment : BaseFragment() {
 
     override fun initViews() {
         initUI()
-        observe()
+        collectState()
     }
 
     private fun initUI() {
@@ -51,17 +56,17 @@ class OnBoardingFragment : BaseFragment() {
         }
     }
 
-    private fun observe() {
-        lifecycleScope.launchWhenStarted {
-            viewModel.eventsFlow.collect { event ->
-                when (event) {
-                    is OnBoardingViewModel.Event.Error -> {
-                        Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
-                    }
+    private fun collectState() = with(viewModel) {
+        withProgress(this, ::onProgress)
+        withError(this, ::onError)
+        withEvent(this) { event ->
+            when (event) {
+                is OnBoardingViewModel.OnBoardingEvent.Error -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                }
 
-                    is OnBoardingViewModel.Event.NavigateToHome -> {
-                        findNavController().navigate(OnBoardingFragmentDirections.actionNavigateHome())
-                    }
+                is OnBoardingViewModel.OnBoardingEvent.NavigateToHome -> {
+                    findNavController().navigate(OnBoardingFragmentDirections.actionNavigateHome())
                 }
             }
         }

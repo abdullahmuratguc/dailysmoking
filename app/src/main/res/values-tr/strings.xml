@@ -4,6 +4,7 @@
     <string name="title_graph">Grafikler</string>
     <string name="title_profile">Profil</string>
     <string name="go_on_btn_text">Devam et</string>
+    <string name="update_btn_text">G]ncelle</string>
     <string name="single_line">-</string>
     <string name="select_date">Tarih Seç</string>
 
@@ -37,6 +38,6 @@
     <string name="yearly_pie_chart_center_text">Yıllık içilen sigara oranları</string>
 
     <!-- Profile screen -->
-    <string name="prrofile_user_update_success">Kullanıcı bilgileri güncellendi</string>
+    <string name="profile_user_update_success">Kullanıcı bilgileri güncellendi</string>
 
 </resources>
