@@ -60,6 +60,7 @@ dependencies {
 
     implementation (platform(Libs.firebaseBoom))
     implementation (Libs.firebaseCrashlytics)
+    implementation(Libs.gsonConverter)
 
     testImplementation (Libs.jUnit)
     androidTestImplementation (Libs.jUnitExt)

@@ -1,1 +1,22 @@
 /build
+
+/.idea/*
+# Do not ignore code style config
+!/.idea/codeStyles
+build
+buildSrc/build/*
+build\*
+build/*
+reports
+*.iml
+local.properties
+signing.properties
+.gradle/
+.navigation/
+*.hprof
+*.txt
+*.apk
+captures/
+*.log
+*.DS_STORE
+!distribution_groups.txt

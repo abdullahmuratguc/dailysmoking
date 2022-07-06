@@ -2,6 +2,8 @@ package murat.utils.extensions
 
 import android.content.Context
 import android.content.res.Configuration
+import android.util.Log
+import timber.log.Timber
 
 /**
  * Created by Murat
@@ -18,5 +20,14 @@ fun Context.getPhoneMode(): Int {
         Configuration.UI_MODE_NIGHT_NO -> LIGHT_MODE
         Configuration.UI_MODE_NIGHT_UNDEFINED -> LIGHT_MODE
         else -> LIGHT_MODE
+    }
+}
+
+fun <T, R> T.tryCatch(priority: Int? = Log.ERROR, block: (T) -> R): R? {
+    return try {
+        block(this)
+    } catch (t: Throwable) {
+        priority?.let { Timber.log(it, t) }
+        null
     }
 }

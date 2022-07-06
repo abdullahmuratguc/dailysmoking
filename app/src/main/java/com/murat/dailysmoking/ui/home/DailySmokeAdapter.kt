@@ -12,11 +12,11 @@ import com.murat.dailysmoking.data.ui.SmokeUiModel
  */
 class DailySmokeAdapter(
     private val onClickSmoke: ((smoke: SmokeUiModel) -> Unit)?,
-    private val onClickDelete: ((smoke: SmokeUiModel) -> Unit)?
+    private val onClickDelete: ((smoke: SmokeUiModel, position: Int) -> Unit)?
 ) :
     BaseListAdapter<SmokeUiModel>(
         itemsSame = { old, new -> old.id == new.id },
-        contentsSame = { old, new -> old == new }
+        contentsSame = { old, new -> old.date == new.date }
     ) {
 
     override fun onCreateViewHolder(

@@ -19,4 +19,3 @@ captures/
 *.log
 *.DS_STORE
 !distribution_groups.txt
-*.apk

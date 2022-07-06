@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.murat.core.withError
+import com.murat.core.withEvent
 import com.murat.core.withProgress
 import com.murat.core.withUiState
 import com.murat.dailysmoking.R
@@ -44,8 +45,8 @@ class HomeFragment : BaseFragment() {
     private val dailySmokeAdapter: DailySmokeAdapter by lazy {
         DailySmokeAdapter(
             onClickSmoke = {},
-            onClickDelete = { smoke ->
-                viewModel.deleteSmoke(smoke.id, selectedDate!!)
+            onClickDelete = { smoke, position ->
+                viewModel.deleteSmoke(smoke.id, selectedDate!!, position)
             }
         )
     }
@@ -108,6 +109,20 @@ class HomeFragment : BaseFragment() {
         withUiState(this, ::setData)
         withProgress(this, ::onProgress)
         withError(this, ::onError)
+        withEvent(this) { event ->
+            when(event) {
+                is HomeViewModel.HomeEvent.DeleteSmokeEvent -> {
+                    val newSmokeList = dailySmokeAdapter.currentList.toMutableList()
+                    newSmokeList.removeAt(event.position)
+                    dailySmokeAdapter.submitList(newSmokeList)
+                    binding.dailySmokeCountBodyTv.text =
+                        binding.dailySmokeCountBodyTv.text.toString()
+                            .toInt()
+                            .minus(1)
+                            .toString()
+                }
+            }
+        }
     }
 
     private fun setData(state: HomeViewModel.HomeState) {

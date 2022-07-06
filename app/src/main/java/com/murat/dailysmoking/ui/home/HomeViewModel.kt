@@ -2,6 +2,7 @@ package com.murat.dailysmoking.ui.home
 
 import androidx.lifecycle.viewModelScope
 import com.murat.core.BaseViewModel
+import com.murat.core.Event
 import com.murat.core.NoEvent
 import com.murat.core.UiState
 import com.murat.dailysmoking.data.ui.SmokeUiModel
@@ -23,7 +24,7 @@ const val DATE_FORMAT = "dd MMM yyyy HH:mm:ss"
 class HomeViewModel @Inject constructor(
     private var userDao: UserDao,
     private var smokeDao: SmokeDao
-) : BaseViewModel<HomeViewModel.HomeState, NoEvent>(HomeState()) {
+) : BaseViewModel<HomeViewModel.HomeState, HomeViewModel.HomeEvent>(HomeState()) {
 
     fun addSmoke(selectedDate: Date) {
         val today = Calendar.getInstance().time
@@ -41,10 +42,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun deleteSmoke(id: Long, selectedDate: Date) {
+    fun deleteSmoke(id: Long, selectedDate: Date, position: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             smokeDao.deleteCigarette(id)
-            getDailySmoke(selectedDate)
+            if (position == Int.ZERO) {
+                getDailySmoke(selectedDate)
+            } else {
+                pushEvent(HomeEvent.DeleteSmokeEvent(position = position))
+            }
         }
     }
 
@@ -96,4 +101,8 @@ class HomeViewModel @Inject constructor(
         val dailyTotalSmokePrice: String = String.EMPTY,
         val lastSmokeTime: Date? = null
     ): UiState
+
+    sealed class HomeEvent: Event {
+        data class DeleteSmokeEvent(val position: Int): HomeEvent()
+    }
 }
