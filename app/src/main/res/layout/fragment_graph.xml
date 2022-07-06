@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -20,10 +19,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/weeklyHeaderTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/weekly_smoking_header_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/weeklySmokeCountBarChart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="56dp" />
         </FrameLayout>
 
         <FrameLayout
@@ -36,10 +47,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/weeklyRoot">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/monthlyHeaderTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/monthly_smoking_header_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/monthlySmokeCountBarChart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="56dp" />
         </FrameLayout>
 
         <FrameLayout
@@ -52,10 +75,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/monthlyRoot">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/yearlyHeaderTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:gravity="center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/yearly_smoking_header_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/yearlySpendPieChart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="56dp" />
         </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

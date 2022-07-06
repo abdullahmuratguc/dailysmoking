@@ -59,15 +59,11 @@ class GraphFragment : BaseFragment() {
         )
         ChartFeed.setPieChartData(
             chart = yearlySpendPieChart,
-            pieEntries = uiState.yearlyPieChartEntry,
-            context = requireContext(),
-            smokeMap = uiState.yearlyMap
+            pieEntries = uiState.yearlyPieChartEntry
         )
     }
 
     private fun initBarChart(barChart: BarChart) {
-        barChart.axisLeft.textColor = ContextCompat.getColor(barChart.context, R.color.white)
-        barChart.axisRight.textColor = ContextCompat.getColor(barChart.context, R.color.white)
         barChart.legend.isEnabled = false
         barChart.xAxis.position = XAxisPosition.BOTTOM
         barChart.xAxis.setDrawGridLines(false)
@@ -75,7 +71,6 @@ class GraphFragment : BaseFragment() {
         barChart.axisRight.setDrawGridLines(false)
         barChart.axisLeft.axisMinimum = 0f
         barChart.axisRight.axisMinimum = 0f
-        barChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.white)
 
         barChart.axisLeft.spaceTop = 15F
         barChart.axisRight.spaceTop = 15F

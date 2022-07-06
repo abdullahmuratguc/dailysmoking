@@ -37,6 +37,9 @@
     <!-- Graphs screen -->
     <string name="weekly_bar_chart_marker_text">%1$s times smoked</string>
     <string name="yearly_pie_chart_center_text">Yearly smoking percents</string>
+    <string name="weekly_smoking_header_text">Daily smoking counts for last 7 days</string>
+    <string name="monthly_smoking_header_text">Daily smoking counts for last 30 days</string>
+    <string name="yearly_smoking_header_text">Yearly smoking percentages according to the months</string>
 
     <!-- Profile screen -->
     <string name="profile_user_update_success">Updated user information</string>

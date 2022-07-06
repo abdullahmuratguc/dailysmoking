@@ -5,6 +5,7 @@
 build
 buildSrc/build/*
 build\*
+build/*
 reports
 *.iml
 local.properties

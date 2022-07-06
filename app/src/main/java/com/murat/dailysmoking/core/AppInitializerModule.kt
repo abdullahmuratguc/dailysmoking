@@ -16,4 +16,8 @@ interface AppInitializerModule {
     @Binds
     @IntoSet
     fun bindTimberInitializer(initializer: TimberInitializer): AppInitializer
+
+    @Binds
+    @IntoSet
+    fun bindCrashlyticsInitializer(initializer: CrashlyticsInitializer): AppInitializer
 }

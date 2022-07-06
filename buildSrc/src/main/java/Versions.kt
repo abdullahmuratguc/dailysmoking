@@ -27,6 +27,12 @@ object Versions {
     const val lifecycleVersion = "2.5.0"
     const val navigationVersion = "2.5.0"
 
+    const val crashlytics = "2.9.1"
+    const val googleServices = "4.3.10"
+
+
+    const val firebaseBoom = "30.2.0"
+
     const val pieChartVersion = "3.1.0"
 
     // Image Loading

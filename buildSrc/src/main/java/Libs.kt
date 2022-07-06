@@ -32,6 +32,11 @@ object Libs {
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:" + Versions.navigationVersion
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:" + Versions.navigationVersion
     const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationVersion}"
+    const val crashlytics = "com.google.firebase:firebase-crashlytics-gradle:${Versions.crashlytics}"
+    const val googleServices = "com.google.gms:google-services:${Versions.googleServices}"
+
+    const val firebaseBoom = "com.google.firebase:firebase-bom:${Versions.firebaseBoom}"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics"
 
     const val pieChart = "com.github.PhilJay:MPAndroidChart:"+ Versions.pieChartVersion
 

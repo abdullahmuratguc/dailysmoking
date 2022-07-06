@@ -16,6 +16,8 @@ buildscript {
         classpath(kotlin("serialization", version = Versions.kotlin))
         classpath(Libs.hiltGradlePlugin)
         classpath(Libs.navigationSafeArgs)
+        classpath(Libs.crashlytics)
+        classpath(Libs.googleServices)
     }
 }
 

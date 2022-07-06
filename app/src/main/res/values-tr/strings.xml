@@ -4,7 +4,7 @@
     <string name="title_graph">Grafikler</string>
     <string name="title_profile">Profil</string>
     <string name="go_on_btn_text">Devam et</string>
-    <string name="update_btn_text">G]ncelle</string>
+    <string name="update_btn_text">Güncelle</string>
     <string name="single_line">-</string>
     <string name="select_date">Tarih Seç</string>
 
@@ -31,11 +31,14 @@
     <string name="home_daily_smoke_price_header_text">Günlük sigara harcaman</string>
     <string name="home_daily_smoke_count_header_text">Günlük içilen sigara sayısı 🤨</string>
     <string name="empty_list_body_text">Herhangi bir dumanlanma tespit edilemedi 🤓</string>
-    <string name="last_moke_time_info_text">Son sigara içtiğinden bu yana geçen süre ☝</string>
+    <string name="last_moke_time_info_text">Son sigara içtiğinden bu zaman kadar geçen süre ☝</string>
 
     <!-- Graphs screen -->
     <string name="weekly_bar_chart_marker_text">Günlük içilen sigara adedi %1$s</string>
     <string name="yearly_pie_chart_center_text">Yıllık içilen sigara oranları</string>
+    <string name="weekly_smoking_header_text">Son 7 günde içilen günlük sigara sayısı</string>
+    <string name="monthly_smoking_header_text">Son 30 günde içilen günlük sigara sayısı</string>
+    <string name="yearly_smoking_header_text">Aylık içilen sigara oranları(Son 1 yıl)</string>
 
     <!-- Profile screen -->
     <string name="profile_user_update_success">Kullanıcı bilgileri güncellendi</string>

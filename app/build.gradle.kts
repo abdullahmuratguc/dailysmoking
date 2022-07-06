@@ -6,6 +6,8 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs.kotlin")
     id("kotlinx-serialization")
+    id ("com.google.gms.google-services")
+    id ("com.google.firebase.crashlytics")
 }
 
 android {
@@ -21,6 +23,7 @@ android {
     buildTypes {
         named("release") {
             isMinifyEnabled = false
+            proguardFiles("proguard-rules.pro")
         }
     }
 }
@@ -54,6 +57,9 @@ dependencies {
     // Coroutines
     implementation (Libs.coroutinesCore)
     implementation (Libs.coroutinesAndroid)
+
+    implementation (platform(Libs.firebaseBoom))
+    implementation (Libs.firebaseCrashlytics)
 
     testImplementation (Libs.jUnit)
     androidTestImplementation (Libs.jUnitExt)
