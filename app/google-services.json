@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "420964747364",
+    "project_id": "daily-smoking",
+    "storage_bucket": "daily-smoking.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420964747364:android:653ebfc666d74675103771",
+        "android_client_info": {
+          "package_name": "com.murat.dailysmoking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420964747364-0qs25ajnprrp3ookmm19j5jk3as79n6f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZRVLSK5j1Q5DTX3c651Ly2e9_5eyM2Y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420964747364-0qs25ajnprrp3ookmm19j5jk3as79n6f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
