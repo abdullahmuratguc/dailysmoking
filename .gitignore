@@ -3,6 +3,7 @@
 # Do not ignore code style config
 !/.idea/codeStyles
 build
+DailySmoking/buildSrc/build/*
 buildSrc/build/*
 build\*
 build/*
