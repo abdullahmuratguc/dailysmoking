@@ -76,11 +76,11 @@ class HomeViewModel @Inject constructor(
                     endDate = endDate
                 ).toString(),
                 dailyTotalSmokePrice = roundOffDecimal(
-                    smokeDao.fetchDailySmokePrice(
+                    number = smokeDao.fetchDailySmokePrice(
                         startDate = startDate,
                         endDate = endDate
                     ) ?: 0.0
-                ).orZero.toString() + " " + smokeDao.getCurrency().orEmpty(),
+                ).orZero.toString() + " " + userDao.getCurrency().orEmpty(),
                 lastSmokeTime = smokeDao.getLastSmoke()?.smokeTime
             )
             setState {
@@ -100,9 +100,9 @@ class HomeViewModel @Inject constructor(
         val dailyTotalSmokeCount: String = String.EMPTY,
         val dailyTotalSmokePrice: String = String.EMPTY,
         val lastSmokeTime: Date? = null
-    ): UiState
+    ) : UiState
 
-    sealed class HomeEvent: Event {
-        data class DeleteSmokeEvent(val position: Int): HomeEvent()
+    sealed class HomeEvent : Event {
+        data class DeleteSmokeEvent(val position: Int) : HomeEvent()
     }
 }
