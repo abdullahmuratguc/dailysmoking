@@ -1,29 +1,31 @@
 package com.murat.dailysmoking.ui.profile
 
-import android.os.Bundle
-import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
+import com.murat.core.withError
+import com.murat.core.withEvent
+import com.murat.core.withProgress
+import com.murat.core.withUiState
 import com.murat.dailysmoking.R
+import com.murat.dailysmoking.base.BaseFragment
+import com.murat.dailysmoking.base.contentViewBinding
 import com.murat.dailysmoking.databinding.FragmentProfileBinding
-import com.murat.dailysmoking.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment(R.layout.fragment_profile) {
+class ProfileFragment : BaseFragment() {
 
-    private val binding by viewBinding(FragmentProfileBinding::bind)
+    private val binding by contentViewBinding(FragmentProfileBinding::bind)
+
+    override val layoutId = R.layout.fragment_profile
 
     private val viewModel: ProfileViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
         initUI()
-        observe()
+        collectState()
     }
 
     private fun initUI() {
@@ -47,34 +49,33 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun observe() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.eventsFlow.collect(::setUi)
+    private fun collectState() = with(viewModel) {
+        withUiState(this, ::setData)
+        withProgress(this, ::onProgress)
+        withError(this, ::onError)
+        withEvent(this) { event ->
+            when (event) {
+                is ProfileViewModel.ProfileEvent.UpdateUser -> {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.profile_user_update_success),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is ProfileViewModel.ProfileEvent.Error -> {
+                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
-    private fun setUi(event: ProfileViewModel.Event) {
-        when (event) {
-            is ProfileViewModel.Event.UserData -> {
-                binding.currencyTv.setText(event.user?.currency.orEmpty(), false)
-                binding.priceEt.setText(event.user?.packagePrice?.toString().orEmpty())
-                binding.cigaretteCountTv.setText(
-                    event.user?.packageContent?.toString().orEmpty(),
-                    false
-                )
-            }
-
-            is ProfileViewModel.Event.UpdateUser -> {
-                Toast.makeText(
-                    context,
-                    getString(R.string.prrofile_user_update_success),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            is ProfileViewModel.Event.Error -> {
-                Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun setData(state: ProfileViewModel.ProfileUiState) {
+        binding.currencyTv.setText(state.user?.currency.orEmpty(), false)
+        binding.priceEt.setText(state.user?.packagePrice?.toString().orEmpty())
+        binding.cigaretteCountTv.setText(
+            state.user?.packageContent?.toString().orEmpty(),
+            false
+        )
     }
 }

@@ -1,14 +1,15 @@
 package com.murat.dailysmoking.ui.splash
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.murat.core.BaseViewModel
+import com.murat.core.Event
+import com.murat.core.UiState
 import com.murat.dailysmoking.db.dao.UserDao
 import com.murat.dailysmoking.db.entity.User
+import com.murat.dailysmoking.utils.EMPTY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,10 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(
     private var userDao: UserDao
-): ViewModel() {
-
-    private val eventChannel = Channel<Event>(Channel.BUFFERED)
-    val eventsFlow = eventChannel.receiveAsFlow()
+): BaseViewModel<UiState, SplashViewModel.SplashEvent>(EmptyState()) {
 
     fun startSplash() = viewModelScope.launch {
         delay(1000)
@@ -32,22 +30,24 @@ class SplashViewModel @Inject constructor(
                 userDao.saveUser(
                     User(
                         isPrimeMember = false,
-                        userName = "",
+                        userName = String.EMPTY,
                         singleCigarettePrice = 00.00
                     )
                 )
             }
 
             if (userDao.getUser()?.singleCigarettePrice == 00.00) {
-                eventChannel.send(Event.NavigateToOnBoardingScreen)
+                pushEvent(SplashEvent.NavigateToOnBoardingScreen)
             } else {
-                eventChannel.send(Event.NavigateToHome)
+                pushEvent(SplashEvent.NavigateToHome)
             }
         }
     }
 
-    sealed class Event {
-        object NavigateToHome : Event()
-        object NavigateToOnBoardingScreen : Event()
+    class EmptyState: UiState
+
+    sealed class SplashEvent: Event {
+        object NavigateToHome : SplashEvent()
+        object NavigateToOnBoardingScreen : SplashEvent()
     }
 }

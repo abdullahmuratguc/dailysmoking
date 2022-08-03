@@ -12,11 +12,14 @@ import com.github.mikephil.charting.utils.MPPointF
 import com.murat.dailysmoking.R
 import com.murat.dailysmoking.db.entity.Smoke
 import com.murat.dailysmoking.utils.EMPTY
+import murat.utils.extensions.getPhoneMode
 
 /**
  * Created by Murat
  */
 object ChartFeed {
+    const val NIGHT_MODE = 0
+    const val LIGHT_MODE = 1
 
     fun setBarChartData(
         chart: BarChart,
@@ -27,7 +30,6 @@ object ChartFeed {
 
         val set1 = BarDataSet(barEntries, String.EMPTY)
         set1.valueFormatter = SmokeValueFormatter()
-        set1.valueTextColor = ContextCompat.getColor(context, R.color.white)
         val xAxis = chart.xAxis
         xAxis.granularity = 1f
         xAxis.valueFormatter = XAxisValueDateFormatter(smokeMap)
@@ -40,14 +42,24 @@ object ChartFeed {
         markerView.chartView = chart
         chart.marker = markerView
 
+        val color = if (context.getPhoneMode() == NIGHT_MODE) {
+            ContextCompat.getColor(context, R.color.white)
+        } else {
+            ContextCompat.getColor(context, R.color.black)
+        }
+
+        chart.axisLeft.textColor = color
+        chart.axisRight.textColor = color
+        chart.xAxis.textColor = color
+        xAxis.textColor = color
+        set1.valueTextColor = color
+
         chart.invalidate()
     }
 
     fun setPieChartData(
         chart: PieChart,
-        pieEntries: List<PieEntry>,
-        context: Context,
-        smokeMap: Map<Int, List<Smoke>>
+        pieEntries: List<PieEntry>
     ) {
 
         val dataSet = PieDataSet(pieEntries, String.EMPTY)
@@ -56,7 +68,6 @@ object ChartFeed {
         dataSet.sliceSpace = 3f
         dataSet.iconsOffset = MPPointF(0f, 40f)
         dataSet.selectionShift = 5f
-        //dataSet.setSelectionShift(0f);
 
         val data = PieData(dataSet)
         data.setValueFormatter(PercentFormatter(chart))
@@ -64,9 +75,6 @@ object ChartFeed {
         data.setValueTextColor(Color.WHITE)
         chart.data = data
 
-        // undo all highlights
-
-        // undo all highlights
         chart.highlightValues(null)
 
         chart.invalidate()

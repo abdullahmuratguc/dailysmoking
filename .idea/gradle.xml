@@ -12,8 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/timerx-core" />
             <option value="$PROJECT_DIR$/timerx-formatting" />
+            <option value="$PROJECT_DIR$/utils" />
           </set>
         </option>
       </GradleProjectSettings>

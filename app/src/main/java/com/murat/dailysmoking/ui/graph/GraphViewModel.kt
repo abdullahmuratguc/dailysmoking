@@ -1,19 +1,17 @@
 package com.murat.dailysmoking.ui.graph
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.PieEntry
+import com.murat.core.BaseViewModel
+import com.murat.core.Event
+import com.murat.core.UiState
 import com.murat.dailysmoking.db.dao.SmokeDao
 import com.murat.dailysmoking.db.dao.UserDao
 import com.murat.dailysmoking.db.entity.Smoke
 import com.murat.dailysmoking.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
@@ -24,10 +22,7 @@ const val DATE_FORMAT = "dd/MMM"
 class GraphViewModel @Inject constructor(
     val smokeDao: SmokeDao,
     val userDao: UserDao,
-) : ViewModel() {
-
-    private val _uiState = MutableStateFlow(UiState())
-    val uiState: StateFlow<UiState> = _uiState
+) : BaseViewModel<GraphViewModel.GraphState, Event>(GraphState()) {
 
     fun getWeeklySmokeCount() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -118,8 +113,8 @@ class GraphViewModel @Inject constructor(
                 monthOfYear = monthOfYear.nextMonth()
             }
 
-            _uiState.update { uiState ->
-                uiState.copy(
+            setState {
+                GraphState(
                     weeklySmokingCountBarEntry = weeklySmokingCountBarEntry,
                     weeklyMap = currentWeekSmokeMapper,
                     monthlySmokingCountBarEntry = monthlySmokingCountBarEntry,
@@ -137,12 +132,12 @@ class GraphViewModel @Inject constructor(
         smokeCurrency = userDao.getCurrency().orEmpty()
     )
 
-    data class UiState(
+    data class GraphState(
         var weeklySmokingCountBarEntry: List<BarEntry> = emptyList(),
         var weeklyMap: Map<Int, List<Smoke>> = mapOf(),
         var monthlySmokingCountBarEntry: List<BarEntry> = emptyList(),
         var monthlyMap: Map<Int, List<Smoke>> = mapOf(),
         var yearlyPieChartEntry: List<PieEntry> = emptyList(),
         var yearlyMap: Map<Int, List<Smoke>> = mapOf(),
-    )
+    ) : UiState
 }

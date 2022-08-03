@@ -1,19 +1,17 @@
 package com.murat.dailysmoking.ui.home
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.murat.core.BaseViewModel
+import com.murat.core.Event
+import com.murat.core.NoEvent
+import com.murat.core.UiState
 import com.murat.dailysmoking.data.ui.SmokeUiModel
 import com.murat.dailysmoking.db.dao.SmokeDao
 import com.murat.dailysmoking.db.dao.UserDao
 import com.murat.dailysmoking.db.entity.Smoke
-import com.murat.dailysmoking.utils.endOfDay
-import com.murat.dailysmoking.utils.orZero
-import com.murat.dailysmoking.utils.startOfDay
-import com.murat.dailysmoking.utils.toFormat
+import com.murat.dailysmoking.utils.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -26,16 +24,7 @@ const val DATE_FORMAT = "dd MMM yyyy HH:mm:ss"
 class HomeViewModel @Inject constructor(
     private var userDao: UserDao,
     private var smokeDao: SmokeDao
-) : ViewModel() {
-
-    private val eventChannel = Channel<Event>(Channel.BUFFERED)
-    val eventsFlow = eventChannel.receiveAsFlow()
-
-    private fun sendEvent(event: Event) {
-        viewModelScope.launch {
-            eventChannel.send(event)
-        }
-    }
+) : BaseViewModel<HomeViewModel.HomeState, HomeViewModel.HomeEvent>(HomeState()) {
 
     fun addSmoke(selectedDate: Date) {
         val today = Calendar.getInstance().time
@@ -53,10 +42,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun deleteSmoke(id: Long, selectedDate: Date) {
+    fun deleteSmoke(id: Long, selectedDate: Date, position: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             smokeDao.deleteCigarette(id)
-            getDailySmoke(selectedDate)
+            if (position == Int.ZERO) {
+                getDailySmoke(selectedDate)
+            } else {
+                pushEvent(HomeEvent.DeleteSmokeEvent(position = position))
+            }
         }
     }
 
@@ -76,21 +69,23 @@ class HomeViewModel @Inject constructor(
                     price = roundOffDecimal(smoke.singleCigarettePrice).toString() + " " + smoke.smokeCurrency.orEmpty()
                 )
             }
-            sendEvent(Event.SmokeList(smokeUiModelList))
-            val headerInfo = Event.HeaderInfo(
+            val homeState = HomeState(
+                smokeList = smokeUiModelList,
                 dailyTotalSmokeCount = smokeDao.fetchDailySmokeCount(
                     startDate = startDate,
                     endDate = endDate
                 ).toString(),
                 dailyTotalSmokePrice = roundOffDecimal(
-                    smokeDao.fetchDailySmokePrice(
+                    number = smokeDao.fetchDailySmokePrice(
                         startDate = startDate,
                         endDate = endDate
                     ) ?: 0.0
-                ).orZero.toString() + " " + smokeDao.getCurrency().orEmpty(),
+                ).orZero.toString() + " " + userDao.getCurrency().orEmpty(),
                 lastSmokeTime = smokeDao.getLastSmoke()?.smokeTime
             )
-            sendEvent(headerInfo)
+            setState {
+                homeState
+            }
         }
     }
 
@@ -100,12 +95,14 @@ class HomeViewModel @Inject constructor(
         return df.format(number).replace(",", ".").toDouble()
     }
 
-    sealed class Event {
-        data class SmokeList(val smokeList: List<SmokeUiModel>) : Event()
-        data class HeaderInfo(
-            val dailyTotalSmokeCount: String,
-            val dailyTotalSmokePrice: String,
-            val lastSmokeTime: Date?
-        ) : Event()
+    data class HomeState(
+        val smokeList: List<SmokeUiModel> = emptyList(),
+        val dailyTotalSmokeCount: String = String.EMPTY,
+        val dailyTotalSmokePrice: String = String.EMPTY,
+        val lastSmokeTime: Date? = null
+    ) : UiState
+
+    sealed class HomeEvent : Event {
+        data class DeleteSmokeEvent(val position: Int) : HomeEvent()
     }
 }

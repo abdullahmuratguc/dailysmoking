@@ -1,32 +1,33 @@
 package com.murat.dailysmoking.ui.home
 
-import android.os.Bundle
-import android.view.View
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.murat.core.withError
+import com.murat.core.withEvent
+import com.murat.core.withProgress
+import com.murat.core.withUiState
 import com.murat.dailysmoking.R
+import com.murat.dailysmoking.base.BaseFragment
+import com.murat.dailysmoking.base.contentViewBinding
 import com.murat.dailysmoking.databinding.FragmentHomeBinding
 import com.murat.dailysmoking.utils.Constants.TIMER_FORMAT
 import com.murat.dailysmoking.utils.Constants.TIMER_INITIAL
 import com.murat.dailysmoking.utils.nextDay
 import com.murat.dailysmoking.utils.prevDay
-import com.murat.dailysmoking.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import timerx.Stopwatch
 import timerx.buildStopwatch
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : BaseFragment() {
 
-    private val binding by viewBinding(FragmentHomeBinding::bind)
+    private val binding by contentViewBinding(FragmentHomeBinding::bind)
+
+    override val layoutId = R.layout.fragment_home
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -44,16 +45,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val dailySmokeAdapter: DailySmokeAdapter by lazy {
         DailySmokeAdapter(
             onClickSmoke = {},
-            onClickDelete = { smoke ->
-                viewModel.deleteSmoke(smoke.id, selectedDate!!)
+            onClickDelete = { smoke, position ->
+                viewModel.deleteSmoke(smoke.id, selectedDate!!, position)
             }
         )
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
         initUI()
-        observe()
+        collectState()
     }
 
     private fun initUI() {
@@ -105,38 +105,48 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun observe() {
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.eventsFlow.collectLatest { state ->
-                when (state) {
-                    is HomeViewModel.Event.SmokeList -> {
-                        dailySmokeAdapter.submitList(state.smokeList) {
-                            if (state.smokeList.isNotEmpty()) {
-                                binding.dailySmokeListRv.scrollToPosition(0)
-                                binding.dailySmokeListRv.isVisible = true
-                                binding.emptySmokingView.isVisible = false
-                            } else {
-                                binding.dailySmokeListRv.isVisible = false
-                                binding.emptySmokingView.isVisible = true
-                            }
-                        }
-                    }
-                    is HomeViewModel.Event.HeaderInfo -> {
-                        state.lastSmokeTime?.let { date ->
-                            stopwatch.setTime(
-                                System.currentTimeMillis() - date.time,
-                                TimeUnit.MILLISECONDS
-                            )
-                            stopwatch.start()
-
-                            binding.dailySmokeCountBodyTv.text = state.dailyTotalSmokeCount
-                            binding.dailySmokePriceBodyTv.text = state.dailyTotalSmokePrice
-                        } ?: run {
-                            binding.lastSmokeTimerTv.text = TIMER_INITIAL
-                        }
-                    }
+    private fun collectState() = with(viewModel) {
+        withUiState(this, ::setData)
+        withProgress(this, ::onProgress)
+        withError(this, ::onError)
+        withEvent(this) { event ->
+            when(event) {
+                is HomeViewModel.HomeEvent.DeleteSmokeEvent -> {
+                    val newSmokeList = dailySmokeAdapter.currentList.toMutableList()
+                    newSmokeList.removeAt(event.position)
+                    dailySmokeAdapter.submitList(newSmokeList)
+                    binding.dailySmokeCountBodyTv.text =
+                        binding.dailySmokeCountBodyTv.text.toString()
+                            .toInt()
+                            .minus(1)
+                            .toString()
                 }
             }
+        }
+    }
+
+    private fun setData(state: HomeViewModel.HomeState) {
+        dailySmokeAdapter.submitList(state.smokeList) {
+            if (state.smokeList.isNotEmpty()) {
+                binding.dailySmokeListRv.scrollToPosition(0)
+                binding.dailySmokeListRv.isVisible = true
+                binding.emptySmokingView.isVisible = false
+            } else {
+                binding.dailySmokeListRv.isVisible = false
+                binding.emptySmokingView.isVisible = true
+            }
+        }
+        state.lastSmokeTime?.let { date ->
+            stopwatch.setTime(
+                System.currentTimeMillis() - date.time,
+                TimeUnit.MILLISECONDS
+            )
+            stopwatch.start()
+
+            binding.dailySmokeCountBodyTv.text = state.dailyTotalSmokeCount
+            binding.dailySmokePriceBodyTv.text = state.dailyTotalSmokePrice
+        } ?: run {
+            binding.lastSmokeTimerTv.text = TIMER_INITIAL
         }
     }
 

@@ -12,7 +12,7 @@ import com.murat.dailysmoking.databinding.ItemDailySmokeListBinding
 class DailySmokeViewHolder(
     view: View,
     private val onClickSmoke: ((smoke: SmokeUiModel) -> Unit)?,
-    private val onClickDelete: ((smoke: SmokeUiModel) -> Unit)?
+    private val onClickDelete: ((smoke: SmokeUiModel, position: Int) -> Unit)?
 ) :
     RecyclerView.ViewHolder(view) {
     private val binding = ItemDailySmokeListBinding.bind(view)
@@ -26,7 +26,7 @@ class DailySmokeViewHolder(
         }
 
         deleteIv.setOnClickListener {
-            onClickDelete?.invoke(uiModel)
+            onClickDelete?.invoke(uiModel, absoluteAdapterPosition)
         }
     }
 }
